@@ -1,12 +1,11 @@
 package com.example.downloadmanagersample
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.downloadmanagersample.database.SyncEnums
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
@@ -71,7 +70,7 @@ class FirstFragment : Fragment() {
                             filePath = "test",
                             fileType = SyncEnums.FileType.IMAGE,
                             module = SyncEnums.Modules.MEDIA,
-                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-15mb.jpg",
+                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-15mb.jpeg",
                             fileSize = 0L,
                             fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
                         ), FileSync(

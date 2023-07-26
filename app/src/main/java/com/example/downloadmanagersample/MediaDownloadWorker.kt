@@ -6,12 +6,12 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.example.downloadmanagersample.database.SyncEnums
-import com.example.downloadmanagersample.database.Utils
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
 import com.google.gson.Gson
@@ -20,8 +20,8 @@ import java.io.File
 import kotlin.random.Random
 
 class MediaDownloadWorker(
-    private val context: Context,
-    private val workerParams: WorkerParameters
+    context: Context,
+    workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     companion object {
         const val FILE_TO_DOWNLOAD_KEY = "media_file_to_download"
@@ -55,7 +55,13 @@ class MediaDownloadWorker(
             //create file object to store the downloaded information
             val mediaFile =
                 File(applicationContext.getExternalFilesDir(mediaDirectory), mediaFileSync.fileName)
-            if (mediaFile.exists()){
+            if (mediaFile.exists()) {
+                fileSyncRepo.insertFileSync(
+                    mediaFileSync.copy(
+                        fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_SUCCESSFUL,
+                        fileSize = mediaFile.length()
+                    )
+                )
                 return@forEach
             }
             val downloadPair = Downloader(applicationContext).downloadFile(
@@ -133,6 +139,7 @@ class MediaDownloadWorker(
                     infoColumn = DownloadManager.COLUMN_REASON,
                     defaultInfo = DownloadManager.ERROR_CANNOT_RESUME
                 )
+                Log.i("Failure Reason", failureReason.toString())
             }
         }
     }
@@ -172,7 +179,7 @@ class MediaDownloadWorker(
             setForeground(
                 ForegroundInfo(
                     Random.nextInt(),
-                    NotificationCompat.Builder(context, channelID)
+                    NotificationCompat.Builder(applicationContext, channelID)
                         .setSmallIcon(android.R.drawable.stat_sys_download)
                         .setContentText("Downloading ${fileSyncSentIn.fileName} ")
                         .setContentTitle("Download in progress")
@@ -183,7 +190,7 @@ class MediaDownloadWorker(
             setForeground(
                 ForegroundInfo(
                     Random.nextInt(),
-                    NotificationCompat.Builder(context, channelID)
+                    NotificationCompat.Builder(applicationContext, channelID)
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentText("Downloading Application Media ")
                         .setContentTitle("Download in progress")

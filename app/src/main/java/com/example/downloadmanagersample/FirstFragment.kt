@@ -43,7 +43,7 @@ class FirstFragment : Fragment() {
                 FileSyncRepo(requireContext()).insertFileSyncs(
                     listOf(
                         FileSync(
-                            fileName = "snake_river.jpg",
+                            fileName = "img1.jpg",
                             filePath = "test",
                             fileType = SyncEnums.FileType.IMAGE,
                             module = SyncEnums.Modules.MEDIA,
@@ -51,11 +51,35 @@ class FirstFragment : Fragment() {
                             fileSize = 0L,
                             fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
                         ), FileSync(
-                            fileName = "20MB.zip",
+                            fileName = "img2.jpg",
                             filePath = "test",
                             fileType = SyncEnums.FileType.IMAGE,
                             module = SyncEnums.Modules.MEDIA,
-                            fileURL = "http://ipv4.download.thinkbroadband.com/20MB.zip",
+                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-5mb.jpg",
+                            fileSize = 0L,
+                            fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
+                        ), FileSync(
+                            fileName = "img3.jpg",
+                            filePath = "test",
+                            fileType = SyncEnums.FileType.IMAGE,
+                            module = SyncEnums.Modules.MEDIA,
+                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-10mb.jpg",
+                            fileSize = 0L,
+                            fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
+                        ), FileSync(
+                            fileName = "img4.jpg",
+                            filePath = "test",
+                            fileType = SyncEnums.FileType.IMAGE,
+                            module = SyncEnums.Modules.MEDIA,
+                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-15mb.jpg",
+                            fileSize = 0L,
+                            fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
+                        ), FileSync(
+                            fileName = "img5.jpg",
+                            filePath = "test",
+                            fileType = SyncEnums.FileType.IMAGE,
+                            module = SyncEnums.Modules.MEDIA,
+                            fileURL = "https://sample-videos.com/img/Sample-jpg-image-20mb.jpg",
                             fileSize = 0L,
                             fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_PENDING
                         )

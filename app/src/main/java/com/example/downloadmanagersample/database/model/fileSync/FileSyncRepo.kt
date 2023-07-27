@@ -2,12 +2,17 @@ package com.example.downloadmanagersample.database.model.fileSync
 
 import android.content.Context
 import android.os.Environment
+import androidx.lifecycle.LiveData
 import com.example.downloadmanagersample.database.SyncDB
 import com.example.downloadmanagersample.database.SyncEnums
 import java.io.File
 
 class FileSyncRepo(val context: Context) {
     private val fileSyncDao = SyncDB.getDatabase(context).fileSyncDao()
+
+    fun getFileSyncByNameLive(fileNames: List<String>): LiveData<List<FileSync>> {
+        return fileSyncDao.getFileSyncByNameLive(fileNames)
+    }
     fun getCountByModuleAndSyncState(
         module: SyncEnums.Modules,
         fileSyncState: SyncEnums.FileSyncState
@@ -36,6 +41,7 @@ class FileSyncRepo(val context: Context) {
             SyncEnums.FileType.VIDEO -> "Videos"
             SyncEnums.FileType.AUDIO -> Environment.DIRECTORY_MUSIC
             SyncEnums.FileType.DOCUMENT -> Environment.DIRECTORY_DOCUMENTS
+            SyncEnums.FileType.UNKNOWN-> "Uncategorized"
         }
     }
 

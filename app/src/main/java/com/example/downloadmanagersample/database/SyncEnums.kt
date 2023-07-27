@@ -14,7 +14,7 @@ object SyncEnums {
     }
 
     enum class FileType {
-        VIDEO, AUDIO, IMAGE, DOCUMENT
+        VIDEO, AUDIO, IMAGE, DOCUMENT, UNKNOWN
     }
 
     enum class FileSyncState{

@@ -31,7 +31,7 @@ class MediaDownloadWorker(
 
     private val fileSyncRepo = FileSyncRepo(applicationContext)
     private val fileSyncSentIn =
-        parseFileSync(inputData.getString(MainActivity.FILE_TO_DOWNLOAD_KEY)) //convert passed in file sync
+        parseFileSync(inputData.getString(FILE_TO_DOWNLOAD_KEY)) //convert passed in file sync
 
     // used passed in file sync or file sync from db if the worker is triggered by auto sync
     private val mediaFileSyncs =

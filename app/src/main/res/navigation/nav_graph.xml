@@ -10,7 +10,6 @@
         android:name="com.example.downloadmanagersample.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_exoPlayerActivity"
             app:destination="@id/exoPlayerActivity" />
@@ -21,7 +20,7 @@
         android:label="activity_exo_player"
         tools:layout="@layout/activity_exo_player" >
         <argument
-            android:name="fileSync"
-            app:argType="com.example.downloadmanagersample.database.model.fileSync.FileSync" />
+            android:name="fileName"
+            app:argType="string" />
     </activity>
 </navigation>

@@ -56,4 +56,25 @@ object DatabaseConstantsSync {
             const val SYNC_FLAG = "sync_flag"
         }
     }
+
+    object MediaDataTable {
+        const val TABLE_NAME = "media_data"
+
+        object ColumnNames {
+            const val MEDIA_ID = "media_id"
+
+            const val FILE_TYPE = "file_type"
+            const val FILE_NAME = "file_name"
+            const val LANGUAGE = "language"
+            const val LENGTH = "length"
+            const val MODULE = "module"
+            const val TRANSCRIPT = "transcript"
+            const val PHASE = "phase"
+            const val USER_ROLES = "user_roles"
+            const val MEDIA_GROUP = "media_group"
+            const val PUBLIC_URL = "public_url"
+            const val DEFAULT_FLAG = "default_flag"
+            const val SIZE = "size"
+        }
+    }
 }

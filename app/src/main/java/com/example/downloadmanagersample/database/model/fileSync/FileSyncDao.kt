@@ -1,5 +1,6 @@
 package com.example.downloadmanagersample.database.model.fileSync
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -35,6 +36,8 @@ abstract class FileSyncDao {
 
     @Query("SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE file_name = :fileName")
     abstract fun getFileSyncByName(fileName: String): FileSync?
+    @Query("SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE file_name in (:fileNames)")
+    abstract fun getFileSyncByNameLive(fileNames: List<String>): LiveData<List<FileSync>>
 
     @Query(
         "SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE " +

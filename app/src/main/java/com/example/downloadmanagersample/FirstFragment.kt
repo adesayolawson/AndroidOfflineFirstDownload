@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.downloadmanagersample.database.SyncEnums
-import com.example.downloadmanagersample.database.Utils
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
 import com.example.downloadmanagersample.database.model.mediaData.MediaData
@@ -57,7 +56,6 @@ class FirstFragment : Fragment() {
     }
 
     private var _binding: FragmentFirstBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -67,10 +65,8 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,7 +108,6 @@ class FirstFragment : Fragment() {
 
                     )
                 }
-
             )
         }
     }

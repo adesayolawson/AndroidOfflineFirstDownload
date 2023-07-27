@@ -2,11 +2,8 @@ package com.example.downloadmanagersample.exoplayer
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.contextaware.withContextAvailable
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -15,7 +12,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.navigation.navArgs
-import com.example.downloadmanagersample.R
+import com.example.downloadmanagersample.database.SyncEnums
 import com.example.downloadmanagersample.database.Utils
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
@@ -37,8 +34,9 @@ class ExoPlayerActivity : AppCompatActivity() {
     private var playbackPosition = 0L
     private lateinit var mediaItem: MediaItem
     private val args: ExoPlayerActivityArgs by navArgs()
-    private lateinit var currentPlayingFile: FileSync
+    private lateinit var currentPlayingFileSync: FileSync
     private lateinit var currentLanguageSelected: String
+    private val downloadList = mutableListOf<FileSync>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +57,14 @@ class ExoPlayerActivity : AppCompatActivity() {
     public override fun onResume() {
         super.onResume()
 
-        if (player == null && this::currentPlayingFile.isInitialized) {
-            initializePlayer(currentPlayingFile)
+        if (player == null && this::currentPlayingFileSync.isInitialized) {
+            initializePlayer(currentPlayingFileSync)
         }
     }
 
     public override fun onPause() {
         super.onPause()
+
     }
 
     public override fun onStop() {
@@ -80,8 +79,15 @@ class ExoPlayerActivity : AppCompatActivity() {
 
     }
 
-    private fun handleDownloadButtonVisibility(fileSync: FileSync) {
-
+    private fun setupDownloadButton(fileSync: FileSync){
+        //make download button invisible when download is running or download completed
+        viewBinding.isDownloadAvailable = !(fileSync.fileSyncState == SyncEnums.FileSyncState.DOWNLOAD_RUNNING||
+                fileSync.fileSyncState == SyncEnums.FileSyncState.DOWNLOAD_SUCCESSFUL )
+        //start file download
+        viewBinding.buttonDownload.setOnClickListener {
+            Utils.startMediaSync(this.applicationContext,fileSync)
+            downloadList.add(fileSync)
+        }
     }
 
 
@@ -172,7 +178,7 @@ class ExoPlayerActivity : AppCompatActivity() {
                 }
 
                 ExoPlayer.STATE_READY -> {
-                    "ExoPlayer.STATE_READY-"
+                    //do nothing
                 }
 
                 ExoPlayer.STATE_ENDED -> {
@@ -194,12 +200,17 @@ class ExoPlayerActivity : AppCompatActivity() {
     private fun initPlayerInformation() {
         lifecycleScope.launch(Dispatchers.Main) {
             //this would ideally be done in a proper manner
+
+            //get media data from media group
             val mediaData = withContext(Dispatchers.IO) {
-                MediaDataRepository(this@ExoPlayerActivity).getMediaDataByGroupName(args.fileName)
+                MediaDataRepository(this@ExoPlayerActivity).getMediaDataByGroupName(args.mediaGroup)
             }
+            //return if media data is empty and
+            //show message indicating error to user @ Abdulmatin
             if (mediaData.isEmpty()) {
                 return@launch
             }
+            //observe file sync live in the event download is triggered in the background
             FileSyncRepo(this@ExoPlayerActivity).getFileSyncByNameLive(mediaData.map {
                 it.fileName ?: ""
             }).observe(this@ExoPlayerActivity) { fileSyncs ->
@@ -213,6 +224,13 @@ class ExoPlayerActivity : AppCompatActivity() {
                     ] = fileSync
                 }
                 setUpDropDown(languageToFileSyncMap)
+
+                if (this@ExoPlayerActivity::currentPlayingFileSync.isInitialized){
+                    //handle live data changes to control button visibility on file sync state change
+                    fileSyncs.find { it.fileName == currentPlayingFileSync.fileName }?.let {
+                        setupDownloadButton(it)
+                    }
+                }
             }
         }
     }
@@ -221,12 +239,13 @@ class ExoPlayerActivity : AppCompatActivity() {
         val dropdownMenu = viewBinding.autoCompleteTextView
         fun startPlayer(){
             currentLanguageSelected = dropdownMenu.text.toString()
-            currentPlayingFile = languageToFileSyncMap[currentLanguageSelected] ?: return
-            initializePlayer(currentPlayingFile)
+            currentPlayingFileSync = languageToFileSyncMap[currentLanguageSelected] ?: return
+            initializePlayer(currentPlayingFileSync)
         }
 
         val languages = languageToFileSyncMap.keys.toTypedArray()
-        if (!this::currentPlayingFile.isInitialized){
+        //check if file is assigned and set dropdown to current file sync
+        if (!this::currentPlayingFileSync.isInitialized){
             dropdownMenu.setText(languages[0])
             startPlayer()
         }
@@ -239,7 +258,9 @@ class ExoPlayerActivity : AppCompatActivity() {
 
         dropdownMenu.setOnItemClickListener { _, _, _, _ ->
             releasePlayer()
+            playbackPosition = 0L
             startPlayer()
+            setupDownloadButton(currentPlayingFileSync)
         }
     }
 

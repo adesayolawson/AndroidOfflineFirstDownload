@@ -20,7 +20,7 @@
         android:label="activity_exo_player"
         tools:layout="@layout/activity_exo_player" >
         <argument
-            android:name="fileName"
+            android:name="mediaGroup"
             app:argType="string" />
     </activity>
 </navigation>

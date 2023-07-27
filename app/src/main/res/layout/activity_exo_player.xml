@@ -1,174 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".exoplayer.ExoPlayerActivity">
-
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isDownloadAvailable"
+            type="boolean" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/activity_vertical_margin">
+        tools:context=".exoplayer.ExoPlayerActivity">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_terms_and_condition"
-            style="@style/AgricOsPrimaryText_HeadingText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/play_terms_and_condition"
-            android:textColor="@color/BG_blue_darker"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_terms_and_condition_desc"
-            style="@style/AgricOsSecondaryText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="5dp"
-            android:text="@string/terms_and_condition_desc"
-            android:textColor="@color/BG_blue_darker"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_terms_and_condition" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:id="@+id/spinner_audio_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_terms_and_condition_desc">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="none"
-                android:text="English"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/download"
-            style="@style/AgricOsPrimaryButton"
-            app:icon="@android:drawable/stat_sys_download"
-            android:backgroundTint="@color/BG_green_agricOS"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner_audio_filter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/spinner_audio_filter" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:contentPadding="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/spinner_audio_filter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_audio_filter"
-            app:strokeColor="@color/BG_gray"
-            app:strokeWidth="1dp">
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/activity_vertical_margin">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_terms_and_condition"
+                style="@style/AgricOsPrimaryText_HeadingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/play_terms_and_condition"
+                android:textColor="@color/BG_blue_darker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_terms_and_condition_desc"
+                style="@style/AgricOsSecondaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/terms_and_condition_desc"
+                android:textColor="@color/BG_blue_darker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_terms_and_condition" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:id="@+id/spinner_audio_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/card_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_terms_and_condition_desc">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="English"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download"
+                android:visibility="@{isDownloadAvailable? View.VISIBLE: View.GONE}"
+                style="@style/AgricOsPrimaryButton"
+                app:icon="@android:drawable/stat_sys_download"
+                android:backgroundTint="@color/BG_green_agricOS"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_audio_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinner_audio_filter" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:contentPadding="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/spinner_audio_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_audio_filter"
+                app:strokeColor="@color/BG_gray"
+                app:strokeWidth="1dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/seekBarLayout">
+                    android:layout_height="wrap_content">
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/img_skip_previous"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="16dp"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_skip_previous_icon"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/seekBarLayout">
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/img_replay_10"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_replay_10_icon"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toStartOf="@+id/img_play_button"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/img_skip_previous"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/img_skip_previous"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginStart="16dp"-->
+                        <!--                        android:background="@color/white"-->
+                        <!--                        android:src="@drawable/ic_skip_previous_icon"-->
+                        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/img_play_button"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_play_icon"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toStartOf="@+id/img_forward_10"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/img_replay_10"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/img_replay_10"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:background="@color/white"-->
+                        <!--                        android:src="@drawable/ic_replay_10_icon"-->
+                        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                        app:layout_constraintEnd_toStartOf="@+id/img_play_button"-->
+                        <!--                        app:layout_constraintStart_toEndOf="@+id/img_skip_previous"-->
+                        <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/img_forward_10"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_forward_10_icon"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toStartOf="@+id/image_skip_next"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/img_play_button"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/img_play_button"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:background="@color/white"-->
+                        <!--                        android:src="@drawable/ic_play_icon"-->
+                        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                        app:layout_constraintEnd_toStartOf="@+id/img_forward_10"-->
+                        <!--                        app:layout_constraintStart_toEndOf="@+id/img_replay_10"-->
+                        <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/image_skip_next"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="16dp"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_skip_next_icon"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/img_forward_10"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:background="@color/white"-->
+                        <!--                        android:src="@drawable/ic_forward_10_icon"-->
+                        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                        app:layout_constraintEnd_toStartOf="@+id/image_skip_next"-->
+                        <!--                        app:layout_constraintStart_toEndOf="@+id/img_play_button"-->
+                        <!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/image_skip_next"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginEnd="16dp"-->
+                        <!--                        android:background="@color/white"-->
+                        <!--                        android:src="@drawable/ic_skip_next_icon"-->
+                        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                        app:layout_constraintTop_toTopOf="parent" />-->
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/seekBarLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/seekBarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.media3.ui.PlayerView
+                        <androidx.media3.ui.PlayerView
                             android:id="@+id/video_view"
 
                             android:layout_width="match_parent"
@@ -180,28 +188,29 @@
                             app:default_artwork="@drawable/babban_gona"
                             />
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/next_btn"
+                style="@style/AgricOsSecondaryButtonFO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:height="@dimen/height_primary_button"
+                android:text="Next"
+                app:cornerRadius="@dimen/corner_radius_standard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_view"
+                app:strokeColor="@color/BG_gray"
+                app:strokeWidth="@dimen/standard_stroke_width" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/next_btn"
-            style="@style/AgricOsSecondaryButtonFO"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:height="@dimen/height_primary_button"
-            android:text="Next"
-            app:cornerRadius="@dimen/corner_radius_standard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_view"
-            app:strokeColor="@color/BG_gray"
-            app:strokeWidth="@dimen/standard_stroke_width" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

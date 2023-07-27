@@ -12,17 +12,16 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_exoPlayerActivity"
+            app:destination="@id/exoPlayerActivity" />
     </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.downloadmanagersample.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <activity
+        android:id="@+id/exoPlayerActivity"
+        android:name="com.example.downloadmanagersample.exoplayer.ExoPlayerActivity"
+        android:label="activity_exo_player"
+        tools:layout="@layout/activity_exo_player" >
+        <argument
+            android:name="fileSync"
+            app:argType="com.example.downloadmanagersample.database.model.fileSync.FileSync" />
+    </activity>
 </navigation>

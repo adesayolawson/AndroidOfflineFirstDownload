@@ -1,5 +1,6 @@
 package com.example.downloadmanagersample
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +13,12 @@ import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import androidx.work.Constraints
 import androidx.work.Data
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.downloadmanagersample.database.SyncEnums
+import com.example.downloadmanagersample.database.Utils
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
 import com.example.downloadmanagersample.databinding.ActivityMainBinding
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Main) {
+            /*lifecycleScope.launch(Dispatchers.Main) {
                 val fileToDownload = withContext(Dispatchers.IO) {
                     FileSyncRepo(this@MainActivity).getFileSyncByModuleAndState(
                         SyncEnums.Modules.MEDIA,
@@ -55,9 +58,12 @@ class MainActivity : AppCompatActivity() {
                 if (fileToDownload != null) {
                     downloadMedia(fileToDownload)
                 }
-            }
+            }*/
+            Utils.startMediaSync(this)
         }
     }
+
+
 
     private fun downloadMedia(fileSync: FileSync) {
         val fileSyncGson =

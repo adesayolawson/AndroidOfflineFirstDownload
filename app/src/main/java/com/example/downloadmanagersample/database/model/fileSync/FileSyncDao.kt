@@ -55,5 +55,18 @@ abstract class FileSyncDao {
                 "${DatabaseConstantsSync.FileSyncTable.ColumnNames.MODULE} =:module LIMIT 1"
     )
     abstract fun getFileSyncByModuleAndState(module: SyncEnums.Modules,fileSyncState: SyncEnums.FileSyncState): FileSync?
+    @Query(
+        "SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE " +
+                "${DatabaseConstantsSync.FileSyncTable.ColumnNames.FILE_SYNC_STATE} =:fileSyncState AND " +
+                "${DatabaseConstantsSync.FileSyncTable.ColumnNames.MODULE} =:module"
+    )
+    abstract fun getFileSyncsByModuleAndState(module: SyncEnums.Modules,fileSyncState: SyncEnums.FileSyncState): List<FileSync>
+
+    @Query(
+        "SELECT count(*) FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE " +
+                "${DatabaseConstantsSync.FileSyncTable.ColumnNames.FILE_SYNC_STATE} =:fileSyncState AND " +
+                "${DatabaseConstantsSync.FileSyncTable.ColumnNames.MODULE} =:module"
+    )
+    abstract fun getCountByModuleAndSyncState(module: SyncEnums.Modules, fileSyncState: SyncEnums.FileSyncState): Int
 
 }

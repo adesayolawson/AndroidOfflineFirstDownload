@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +7,100 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+
+    <!--    Babban Gona AgricOS Colours-->
+    <color name="BG_blue">#003296</color>
+    <color name="Gray_6">#333333</color>
+    <color name="Gray_5">#4F4F4F</color>
+    <color name="Gray_4">#828282</color>
+    <color name="Gray_3">#BDBDBD</color>
+    <color name="Gray_2">#E0E0E0</color>
+    <color name="Gray_1">#F2F2F2</color>
+    <color name="BG_red">#FF4B4B</color>
+    <color name="BG_red_alpha_20">#33FF4B4B</color>
+    <color name="BG_redTint">#44FF5252</color>
+    <color name="BG_red2">#FF4B4B</color>
+    <color name="BG_red_light">#FFDBDB</color>
+    <color name="BG_green">#329632</color>
+    <color name="BG_green_alpha_20">#3388E11B</color>
+    <color name="alert_green">#E7F9D1</color>
+    <color name="BG_blue_dark">#001D58</color>
+    <color name="BG_brown">#966C00</color>
+    <color name="BG_orange">#FFFF9800</color>
+    <color name="orange">#FFFF9600</color>
+    <color name="BG_yellowish_orange">#FFBE16</color>
+    <color name="BG_brown_sat">#963600</color>
+    <color name="BG_warm">#FFF4D7</color>58CC02
+    <color name="BG_green_light">#E4F8E8</color>
+    <color name="BG_brown_light">#FCF7EA</color>
+    <color name="BG_blue_light">#F4F8FF</color>
+    <color name="BG_yellow">#FFFFF59D</color>
+    <color name="BG_New_yellow">#FFEB3B</color>
+    <color name="BG_blue_light_2">#D9E0EF</color>
+    <color name="BG_gray">#75748F</color>
+    <color name="BG_gray_20">#3375748F</color>
+    <color name="BG_green_agricOS">#58CC02</color>
+    <color name="BG_light_green_agricOS">#DEF5CC</color>
+    <color name="BG_blue_agricOS">#00B4B9</color>
+    <color name="BG_light_green_agricOs">#EFFAE6</color>
+    <color name="BG_purple">#791E94</color>
+    <color name="Agric_os_footer_purple">#33C792DF</color>
+    <color name="Gray_7">#6675748F</color>
+    <color name="grey_9">#D9D9D9</color>
+    <color name="BG_blue_darker">#252244</color>
+    <color name="sky_blue">#1CB0F6</color>
+    <color name="BG_black">#000000</color>
+    <color name="BG_grey_background">#C4C4C4</color>
+    <color name="Agric_os_disable_btn_color">#6675748F</color>
+    <color name="agric_os_card_selected_color">#33FFF59D</color>
+    <color name="id_transaction_history_transf_ret_text_bg">#33C792DF</color>
+    <color name="id_transaction_history_dist_seed_text_bg">#3358CC02</color>
+    <color name="red">#CC2602</color>
+    <color name="Gray_8">#DBDFF0</color>
+    <color name="notice_background">#CFF0B6</color>
+    <color name="view_trainee_bg">#53B500</color>
+    <color name="success_button_dialog_green">#88E11B</color>
+    <color name="BG_dialog_deep_green">#59C903</color>
+    <color name="BG_green_prompt">#88E11B</color>
+
+
+    <color name="text_disabled">@color/Gray_7</color>
+    <color name="nav_tab_indicator">@color/BG_green</color>
+    <color name="black_transparent">#4D000000</color>
+    <color name="otp_selected_light_blue">#661CB0F6</color>
+    <color name="edit_text_unfilled_bg">#F2F2F4</color>
+    <color name="et_enter_bag">#F5F5F5</color>
+    <color name="decline_text">#EB4E4F</color>
+    <color name="edit_text_operator_training">#F1F2F9</color>
+
+    <!-- Used as the stroke color of all outlined layouts -->
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">
+        @color/BG_blue
+    </color>
+    <color name="BG_dark_gray">#1A75748F</color>
+    <color name="Bg_white_shade">#F8F9FC</color>
+    <color name="Bg_gray_7">#6675748F</color>
+    <color name="scanner_color">#77000000</color>
+    <color name="BG_Deep_Purple">#791E94</color>
+    <color name="home_screen_overlay">#000522</color>
+    <color name="scanner_mask_color">#C4C4C4</color>
+    <color name="light_blue">#D2EFFD</color>
+    <color name="scanner_frame_color">#58CC02</color>
+    <color name="transparent_color">#00000000</color>
+    <color name="app_info_display_background">#C792DF</color>
+    <color name="rounded_edittext_background">#F5F5F5</color>
+    <color name="BG_Light_Orange">#FEF9D9</color>
+    <color name="BG_Dark_Orange">#FF9600</color>
+    <color name="BG_Light_Blue">#1CB0F6</color>
+    <color name="BG_white_gray">#EEEEEE</color>
+    <color name="BG_tfm_yellow">#F8DF3F</color>
+    <color name="BG_green_agricOS_alpha_15">#2658CC02</color>
+    <color name="BG_new_gray_alpha_50">#80D9D9D9</color>
+    <color name="BG_blue_alpha_10">#1A003296</color>
+    <color name="BG_tfm_yellow_alpha_20">#33F8DF3F</color>
+    <color name="BG_light_grayish">#E1E1E1</color>
+
+
 </resources>

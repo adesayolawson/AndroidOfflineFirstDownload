@@ -8,6 +8,18 @@
     <string name="insert_files_to_db">Insert File Info To DB</string>
     <string name="previous">Previous</string>
 
+
+    <string-array name="language">
+        <item>English</item>
+        <item>Hausa</item>
+    </string-array>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="main_activity_fab_description">the download button to start trigger the media sync</string>
+
+
+    <string name="play_terms_and_condition">Play Terms and Conditions Audio</string>
+    <string name="terms_and_condition_desc">Please play the audio below for the Poultry Leader before delivering the birds. \n\nClick next to record a video of the member accepting the terms and conditions they have heard in the audio. The Poultry Leader also has to state the number of birds he was given</string>
+
 </resources>

@@ -1,3 +1,89 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- Default screen margins for AgricOS -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_text_padding">16dp</dimen>
+    <dimen name="card_view_padding">16dp</dimen>
+
+    <dimen name="margin_lord">112dp</dimen>
+    <dimen name="margin_largest">56dp</dimen>
+    <dimen name="margin_larger">40dp</dimen>
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_biggest">28dp</dimen>
+    <dimen name="margin_bigger">24dp</dimen>
+    <dimen name="margin_big">20dp</dimen>
+    <dimen name="margin_mid">16dp</dimen>
+    <dimen name="margin_mid_negative">-16dp</dimen>
+    <dimen name="margin_small">12dp</dimen>
+    <dimen name="margin_small_negative">-12dp</dimen>
+    <dimen name="margin_smaller">8dp</dimen>
+    <dimen name="margin_smaller_negative">-8dp</dimen>
+    <dimen name="margin_smallest">4dp</dimen>
+    <dimen name="margin_smallest_negative">-4dp</dimen>
+    <dimen name="margin_micro">2dp</dimen>
+    <dimen name="no_margin">0dp</dimen>
+
+    <dimen name="nav_tab_indicator_height">4dp</dimen>
+    <dimen name="valid_location_date">56dp</dimen>
+    <dimen name="view_available_days">8dp</dimen>
+    <dimen name="margin_top_header">50dp</dimen>
+    <dimen name="margin_top_sub_header">8dp</dimen>
+    <dimen name="margin_top_standard">16dp</dimen>
+    <dimen name="margin_start_standard">16dp</dimen>
+    <dimen name="corner_radius_standard">10dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="box_corner_radius_text_input_layout">5dp</dimen>
+    <dimen name="margin_top_within_view">8dp</dimen>
+    <dimen name="rectangle_drawable_margin_start">4dp</dimen>
+    <dimen name="location_drawable_margin_end">16dp</dimen>
+    <dimen name="location_drawable_margin_bottom">-2dp</dimen>
+    <dimen name="width_of_dual_button">120dp</dimen>
+    <dimen name="height_of_dual_button">55dp</dimen>
+    <dimen name="standard_stroke_width">1dp</dimen>
+    <dimen name="layout_height_secondary_button">48dp</dimen>
+    <dimen name="corner_radius_secondary_button">10dp</dimen>
+    <dimen name="corner_radius_card_label">8dp</dimen>
+    <dimen name="flat_card_elevation">0dp</dimen>
+    <dimen name="layout_height_primary_button">54dp</dimen>
+    <dimen name="height_primary_button">54dp</dimen>
+    <dimen name="margin_top_higher">32dp</dimen>
+    <dimen name="cardview_margin_top">24dp</dimen>
+    <dimen name="secondary_button_width">40dp</dimen>
+    <dimen name="secondary_button_height">40dp</dimen>
+    <dimen name="primary_button_lower_base_margin_top">165dp</dimen>
+    <dimen name="image_width">60dp</dimen>
+    <dimen name="tge_image">100dp</dimen>
+    <dimen name="edit_text_border_width_dimension">1.5dp</dimen>
+    <dimen name="qr_scanner_height_width">350dp</dimen>
+    <dimen name="qr_code_height_width">300dp</dimen>
+    <dimen name="fieldhistory_height">45dp</dimen>
+    <dimen name="germination_capture_image_height">400dp</dimen>
+    <dimen name="germination_field_image_height">200dp</dimen>
+    <dimen name="germination_captured_image_height">400dp</dimen>
+    <dimen name="accept_reject_btn_padding">35dp</dimen>
+    <dimen name="accept_remove_btn_padding">20dp</dimen>
+    <dimen name="padding_left_right">16dp</dimen>
+    <dimen name="padding_normal">10dp</dimen>
+    <dimen name="auto_germ_comment_height">200dp</dimen>
+    <dimen name="auto_germ_field_img_height">200dp</dimen>
+    <dimen name="pin_view_size">47dp</dimen>
+    <dimen name="pin_view_radius">6dp</dimen>
+
+    <dimen name="text_size_large">56sp</dimen>
+    <dimen name="text_size_biggest">45sp</dimen>
+    <dimen name="text_size_bigger">34sp</dimen>
+    <dimen name="text_size_big">24sp</dimen>
+    <dimen name="text_size_mid">20sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_smaller">14sp</dimen>
+    <dimen name="text_size_smallest">12sp</dimen>
+    <dimen name="text_size_micro">11sp</dimen>
+    <dimen name="text_size_micro_small">10sp</dimen>
+    <dimen name="text_size_micro_smaller">8sp</dimen>
+    <dimen name="tdialog">8sp</dimen>
+    <dimen name="dp7">7dp</dimen>
+
 </resources>

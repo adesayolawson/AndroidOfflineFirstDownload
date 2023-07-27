@@ -124,9 +124,9 @@ class ExoPlayerActivity : AppCompatActivity() {
                 // please note that android determines the package name
                 val file = File(
                     this.getExternalFilesDir(null)?.absoluteFile,
-                    "Music/test_audio_1/Nonstop.mp3"
+//                    "Music/test_audio_1/Nonstop.mp3"
 
-//                    "Music/test_audio_2/Space Cadet.mp3"
+                    "Music/test_audio_2/Space Cadet.mp3"
 
                     // in reality the above code will navigate to
                     // downloaded_media/video/hausa/play_me.mp4

@@ -130,7 +130,7 @@ class FirstFragment : Fragment() {
         binding.navigateToExoPlayerButton.setOnClickListener {
 
             val dummy_data = FileSync(
-                c = "nonstop.mp4",
+                fileName = "nonstop.mp4",
                 filePath = "video",
 
                 fileType = SyncEnums.FileType.AUDIO,

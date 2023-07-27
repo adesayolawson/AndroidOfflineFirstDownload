@@ -1,4 +1,4 @@
-package com.example.downloadmanagersample
+package com.example.downloadmanagersample.downloadUtils
 
 import android.app.DownloadManager
 import java.io.File

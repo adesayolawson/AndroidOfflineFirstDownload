@@ -1,4 +1,4 @@
-package com.example.downloadmanagersample
+package com.example.downloadmanagersample.downloadUtils
 
 import android.app.DownloadManager
 import android.app.NotificationChannel
@@ -11,6 +11,8 @@ import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
+import com.example.downloadmanagersample.MainActivity
+import com.example.downloadmanagersample.R
 import com.example.downloadmanagersample.database.SyncEnums
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.example.downloadmanagersample.database.model.fileSync.FileSyncRepo
@@ -55,6 +57,7 @@ class MediaDownloadWorker(
             //create file object to store the downloaded information
             val mediaFile =
                 File(applicationContext.getExternalFilesDir(mediaDirectory), mediaFileSync.fileName)
+            // check if the media file already exists in the directory to avoid triggering redownload
             if (mediaFile.exists()) {
                 fileSyncRepo.insertFileSync(
                     mediaFileSync.copy(
@@ -79,7 +82,11 @@ class MediaDownloadWorker(
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
-                fileSyncRepo.insertFileSync(mediaFileSync.copy(fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_FAILED))
+                fileSyncRepo.insertFileSync(
+                    mediaFileSync.copy(
+                        fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_FAILED
+                    )
+                )
                 downloadManager.remove(downloadID)
             }
         }
@@ -132,7 +139,7 @@ class MediaDownloadWorker(
 
             DownloadManager.STATUS_FAILED -> {
                 fileSyncRepo.insertFileSync(fileSync.copy(fileSyncState = SyncEnums.FileSyncState.DOWNLOAD_FAILED))
-                //todo: implement finer failure handling
+                //todo: implement finer failure handling to account for possible retry scenarios
                 val failureReason = getDownloadInfo(
                     downloadManager = downloadManager,
                     downloadID = downloadID,
@@ -151,7 +158,7 @@ class MediaDownloadWorker(
         defaultInfo: Int
     ): Int {
         val query = DownloadManager.Query()
-        query.setFilterById(downloadID) // filter your download by download Id
+        query.setFilterById(downloadID) // filter download by download Id
         val cursor = downloadManager.query(query)
         if (cursor.moveToFirst()) {
             val statusIndex = cursor.getColumnIndex(infoColumn)

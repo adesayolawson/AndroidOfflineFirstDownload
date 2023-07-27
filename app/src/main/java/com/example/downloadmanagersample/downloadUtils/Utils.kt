@@ -1,4 +1,4 @@
-package com.example.downloadmanagersample.database
+package com.example.downloadmanagersample.downloadUtils
 
 import android.content.Context
 import androidx.work.Constraints
@@ -7,7 +7,6 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.downloadmanagersample.MediaDownloadWorker
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
 import com.google.gson.Gson
 

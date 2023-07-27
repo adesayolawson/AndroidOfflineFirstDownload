@@ -6,7 +6,7 @@ import com.example.downloadmanagersample.database.SyncDB
 import com.example.downloadmanagersample.database.SyncEnums
 import java.io.File
 
-class FileSyncRepo(val context: Context) {
+class FileSyncRepo(private val context: Context) {
     private val fileSyncDao = SyncDB.getDatabase(context).fileSyncDao()
     fun getCountByModuleAndSyncState(
         module: SyncEnums.Modules,

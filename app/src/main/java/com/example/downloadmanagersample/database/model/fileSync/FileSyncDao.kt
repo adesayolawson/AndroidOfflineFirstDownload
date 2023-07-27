@@ -18,21 +18,6 @@ abstract class FileSyncDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertFileSyncs(fileSyncs: List<FileSync>)
 
-    @Query(
-        "SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE sync_flag =0 " +
-            "AND ${DatabaseConstantsSync.FileSyncTable.ColumnNames.MODULE} = :module LIMIT 1"
-    )
-    abstract fun getFileToUpload(module: SyncEnums.Modules): FileSync?
-
-    @Query(
-        "SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE sync_flag =0 " +
-            "AND ${DatabaseConstantsSync.FileSyncTable.ColumnNames.MODULE} = :module"
-    )
-    abstract fun getFilesToUpload(module: SyncEnums.Modules): List<FileSync>?
-
-    @Query("SELECT count(*) FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE sync_flag = 0 ")
-    abstract fun getUploadFileCount(): Int
-
     @Query("SELECT * FROM ${DatabaseConstantsSync.FileSyncTable.TABLE_NAME} WHERE file_name = :fileName")
     abstract fun getFileSyncByName(fileName: String): FileSync?
 

@@ -145,8 +145,6 @@ class ExoPlayerActivity : AppCompatActivity() {
             playWhenReady = player.playWhenReady
 
             player.removeListener(playbackStateListener)
-
-
             player.release()
         }
         player = null
@@ -182,12 +180,10 @@ class ExoPlayerActivity : AppCompatActivity() {
                 }
 
                 ExoPlayer.STATE_ENDED -> {
-
                     val builder = AlertDialog.Builder(this@ExoPlayerActivity)
                     builder.setTitle("Media Player")
                     builder.setMessage("The Media File Has Ended")
                     builder.setCancelable(false)
-
                     builder.setPositiveButton("OKAY") { _, _ -> }
                     builder.show()
                 }

@@ -1,17 +1,24 @@
 package com.example.downloadmanagersample.exoplayer
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.navigation.navArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.downloadmanagersample.database.SyncEnums
 import com.example.downloadmanagersample.database.Utils
 import com.example.downloadmanagersample.database.model.fileSync.FileSync
@@ -21,40 +28,53 @@ import com.example.downloadmanagersample.databinding.ActivityExoPlayerBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Timer
+import java.util.TimerTask
 
-class ExoPlayerActivity : AppCompatActivity() {
+
+class ExoPlayerFragment : Fragment() {
 
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityExoPlayerBinding.inflate(layoutInflater)
     }
+    private enum class StreamingState{ONLINE,OFFLINE}
     private val playbackStateListener: Player.Listener = playbackStateListener()
     private var player: Player? = null
     private var playWhenReady = true
     private var mediaItemIndex = 0
     private var playbackPosition = 0L
     private lateinit var mediaItem: MediaItem
-    private val args: ExoPlayerActivityArgs by navArgs()
+    private val args by navArgs<ExoPlayerFragmentArgs>()
     private lateinit var currentPlayingFileSync: FileSync
     private lateinit var currentLanguageSelected: String
     private val downloadList = mutableListOf<FileSync>()
+    private lateinit var streamingState: StreamingState
+    private val internetTimeoutTimer= Timer("internet timeout timer",false)
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(viewBinding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
+        return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewBinding.nextBtn.setOnClickListener {
             checkLanguage()
         }
         initPlayerInformation()
     }
 
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
 
     }
 
-    public override fun onResume() {
+    override fun onResume() {
         super.onResume()
 
         if (player == null && this::currentPlayingFileSync.isInitialized) {
@@ -62,18 +82,18 @@ class ExoPlayerActivity : AppCompatActivity() {
         }
     }
 
-    public override fun onPause() {
+    override fun onPause() {
         super.onPause()
 
     }
 
-    public override fun onStop() {
+    override fun onStop() {
         super.onStop()
         releasePlayer()
     }
 
     private fun checkLanguage(): String {
-        Toast.makeText(this, viewBinding.autoCompleteTextView.text.toString(), Toast.LENGTH_SHORT)
+        Toast.makeText(requireContext(), viewBinding.autoCompleteTextView.text.toString(), Toast.LENGTH_SHORT)
             .show()
         return viewBinding.autoCompleteTextView.text.toString()
 
@@ -85,7 +105,7 @@ class ExoPlayerActivity : AppCompatActivity() {
                 fileSync.fileSyncState == SyncEnums.FileSyncState.DOWNLOAD_SUCCESSFUL )
         //start file download
         viewBinding.buttonDownload.setOnClickListener {
-            Utils.startMediaSync(this.applicationContext,fileSync)
+            Utils.startMediaSync(requireActivity().applicationContext,fileSync)
             downloadList.add(fileSync)
         }
     }
@@ -93,41 +113,23 @@ class ExoPlayerActivity : AppCompatActivity() {
 
     private fun initializePlayer(fileSync: FileSync) {
         // ExoPlayer implements the Player interface
-        player = ExoPlayer.Builder(this)
+        player = ExoPlayer.Builder(requireContext())
             .build()
             .also { exoPlayer ->
                 viewBinding.videoView.player = exoPlayer
                 //get the saved file from the file sync object
-                val file = FileSyncRepo(this).getFileFromFileSync(this, fileSync)
+                val file = FileSyncRepo(requireContext()).getFileFromFileSync(requireContext(), fileSync)
 
                 mediaItem = if (file == null) {
+                    streamingState = StreamingState.ONLINE
+                    if (!isNetworkAvailable()){
+                        Toast.makeText(requireContext(), "internet issue", Toast.LENGTH_SHORT).show()
+                        return}
                     MediaItem.fromUri(fileSync.fileURL ?: "")
                 } else {
+                    streamingState = StreamingState.OFFLINE
                     MediaItem.fromUri(file.toUri())
                 }
-
-                // please note that android determines the package name
-                /*                val file = File(
-                                    this.getExternalFilesDir(null)?.absoluteFile,
-                //                    "Music/test_audio_1/Nonstop.mp3"
-
-                                    "Music/test_audio_2/Space Cadet.mp3"
-
-                                    // in reality the above code will navigate to
-                                    // downloaded_media/video/hausa/play_me.mp4
-                //                   " downloaded_media/${args.fileSync.fileName}/${args.fileSync.language}/${args.fileSync.fileName}"
-                                )
-
-
-
-                                if (file.exists()) {
-                                    mediaItem = MediaItem.fromUri(file.toString())
-                                } else if (!file.exists()) {
-                                    mediaItem = MediaItem.fromUri(args.fileSync.fileURL.toString())
-
-                                }
-                //                Toast.makeText(this, "${file.toURI()}", Toast.LENGTH_SHORT).show()
-                */
 
 
                 exoPlayer.setMediaItems(listOf(mediaItem), mediaItemIndex, playbackPosition)
@@ -154,25 +156,38 @@ class ExoPlayerActivity : AppCompatActivity() {
         override fun onPlaybackStateChanged(playbackState: Int) {
             when (playbackState) {
                 ExoPlayer.STATE_IDLE -> {
-
-                    val builder = AlertDialog.Builder(this@ExoPlayerActivity)
-                    builder.setTitle("Media Player")
-                    builder.setMessage("There Was An Error While Media Video. Do You Want To Retry?")
-                    builder.setPositiveButton("YES") { _, _ ->
-                        player?.prepare()
-                        player?.playWhenReady
+                    when(streamingState){
+                        StreamingState.ONLINE->{
+                            if (!isNetworkAvailable()){
+                                //show message to inform user that internet has been disconnected
+                                Toast.makeText(requireContext(), "internet disconnected please find network", Toast.LENGTH_SHORT).show()
+                                //5 second timer to let the user find good network before closing
+                                val timerTask = object :TimerTask(){
+                                    override fun run() {
+                                        activity?.runOnUiThread{
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "internet issue",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            findNavController().navigateUp()
+                                        }
+                                    }
+                                }
+                                internetTimeoutTimer.schedule(timerTask,5000)
+                                return
+                            }
+                            Toast.makeText(requireContext(), "error playing file", Toast.LENGTH_SHORT).show()
+                        }
+                        StreamingState.OFFLINE->{
+                            Toast.makeText(requireContext(), "error playing file", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    builder.setNegativeButton("NO") { _, _ -> }
-                    builder.setCancelable(false)
-
-                    builder.show()
-                    Log.d("MYHTTP", "idle...")
 
                 }
 
                 ExoPlayer.STATE_BUFFERING -> {
                     Log.d("MYHTTP", "buffering...")
-
                 }
 
                 ExoPlayer.STATE_READY -> {
@@ -180,7 +195,7 @@ class ExoPlayerActivity : AppCompatActivity() {
                 }
 
                 ExoPlayer.STATE_ENDED -> {
-                    val builder = AlertDialog.Builder(this@ExoPlayerActivity)
+                    val builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("Media Player")
                     builder.setMessage("The Media File Has Ended")
                     builder.setCancelable(false)
@@ -199,7 +214,7 @@ class ExoPlayerActivity : AppCompatActivity() {
 
             //get media data from media group
             val mediaData = withContext(Dispatchers.IO) {
-                MediaDataRepository(this@ExoPlayerActivity).getMediaDataByGroupName(args.mediaGroup)
+                MediaDataRepository(requireContext()).getMediaDataByGroupName(args.mediaGroup)
             }
             //return if media data is empty and
             //show message indicating error to user @ Abdulmatin
@@ -207,9 +222,9 @@ class ExoPlayerActivity : AppCompatActivity() {
                 return@launch
             }
             //observe file sync live in the event download is triggered in the background
-            FileSyncRepo(this@ExoPlayerActivity).getFileSyncByNameLive(mediaData.map {
+            FileSyncRepo(requireContext()).getFileSyncByNameLive(mediaData.map {
                 it.fileName ?: ""
-            }).observe(this@ExoPlayerActivity) { fileSyncs ->
+            }).observe(this@ExoPlayerFragment) { fileSyncs ->
                 if (fileSyncs.isEmpty()) {
                     return@observe
                 }
@@ -221,7 +236,7 @@ class ExoPlayerActivity : AppCompatActivity() {
                 }
                 setUpDropDown(languageToFileSyncMap)
 
-                if (this@ExoPlayerActivity::currentPlayingFileSync.isInitialized){
+                if (this@ExoPlayerFragment::currentPlayingFileSync.isInitialized){
                     //handle live data changes to control button visibility on file sync state change
                     fileSyncs.find { it.fileName == currentPlayingFileSync.fileName }?.let {
                         setupDownloadButton(it)
@@ -247,7 +262,7 @@ class ExoPlayerActivity : AppCompatActivity() {
         }
         dropdownMenu.setAdapter(
             ArrayAdapter(
-                this,
+                requireContext(),
                 android.R.layout.simple_dropdown_item_1line, languages
             )
         )
@@ -260,14 +275,15 @@ class ExoPlayerActivity : AppCompatActivity() {
         }
     }
 
+    //function to check if the internet is available
+    fun isNetworkAvailable(): Boolean {
+        return try {
+            val cm = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            cm.getNetworkCapabilities(cm.activeNetwork)?.hasCapability(NET_CAPABILITY_INTERNET)?:false
+        } catch (e: Exception) {
+            false
+        }
+    }
 
-//    @SuppressLint("InlinedApi")
-//    private fun hideSystemUi() {
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        WindowInsetsControllerCompat(window, viewBinding.videoView).let { controller ->
-//            controller.hide(WindowInsetsCompat.Type.systemBars())
-//            controller.systemBarsBehavior =
-//                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-//        }
-//    }
+//    private fun
 }

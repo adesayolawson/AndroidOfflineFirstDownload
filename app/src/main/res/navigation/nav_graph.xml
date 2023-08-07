@@ -11,16 +11,14 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
         <action
-            android:id="@+id/action_FirstFragment_to_exoPlayerActivity"
-            app:destination="@id/exoPlayerActivity" />
+            android:id="@+id/action_FirstFragment_to_exoPlayerFragment"
+            app:destination="@id/exoPlayerFragment" />
     </fragment>
-    <activity
-        android:id="@+id/exoPlayerActivity"
-        android:name="com.example.downloadmanagersample.exoplayer.ExoPlayerActivity"
-        android:label="activity_exo_player"
-        tools:layout="@layout/activity_exo_player" >
-        <argument
-            android:name="mediaGroup"
+    <fragment
+        android:id="@+id/exoPlayerFragment"
+        android:name="com.example.downloadmanagersample.exoplayer.ExoPlayerFragment"
+        android:label="ExoPlayerFragment" >
+        <argument android:name="mediaGroup"
             app:argType="string" />
-    </activity>
+    </fragment>
 </navigation>

@@ -83,7 +83,7 @@ class FirstFragment : Fragment() {
         }
 
         binding.navigateToExoPlayerButton.setOnClickListener {
-            val action = FirstFragmentDirections.actionFirstFragmentToExoPlayerActivity(
+            val action = FirstFragmentDirections.actionFirstFragmentToExoPlayerFragment(
                 sampleMediaData[0].mediaGroup.toString()
             )
             findNavController().navigate(action)

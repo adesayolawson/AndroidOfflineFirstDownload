@@ -13,11 +13,22 @@
         <action
             android:id="@+id/action_FirstFragment_to_exoPlayerFragment"
             app:destination="@id/exoPlayerFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_svgPlayerFragment"
+            app:destination="@id/svgPlayerFragment" />
     </fragment>
     <fragment
         android:id="@+id/exoPlayerFragment"
         android:name="com.example.downloadmanagersample.exoplayer.ExoPlayerFragment"
         android:label="ExoPlayerFragment" >
+        <argument android:name="mediaGroup"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/svgPlayerFragment"
+        android:name="com.example.downloadmanagersample.SvgPlayerFragment"
+        android:label="fragment_svg_player"
+        tools:layout="@layout/fragment_svg_player" >
         <argument android:name="mediaGroup"
             app:argType="string" />
     </fragment>

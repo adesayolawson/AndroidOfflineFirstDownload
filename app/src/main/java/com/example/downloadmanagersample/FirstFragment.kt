@@ -88,6 +88,13 @@ class FirstFragment : Fragment() {
             )
             findNavController().navigate(action)
         }
+
+        binding.button.setOnClickListener {
+            val action = FirstFragmentDirections.actionFirstFragmentToSvgPlayerFragment(
+                sampleMediaData[0].mediaGroup.toString()
+            )
+            findNavController().navigate(action)
+        }
     }
 
 

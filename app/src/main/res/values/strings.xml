@@ -23,5 +23,7 @@
     <string name="terms_and_condition_desc">Please play the audio below for the Poultry Leader before delivering the birds. \n\nClick next to record a video of the member accepting the terms and conditions they have heard in the audio. The Poultry Leader also has to state the number of birds he was given</string>
     <string name="download">Download</string>
     <string name="move_to_player_fragment">Move to Player Fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

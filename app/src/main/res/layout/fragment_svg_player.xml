@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isDownloadAvailable"
+            type="boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SvgPlayerFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/activity_vertical_margin">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_terms_and_condition"
+                style="@style/AgricOsPrimaryText_HeadingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/play_terms_and_condition"
+                android:textColor="@color/BG_blue_darker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_terms_and_condition_desc"
+                style="@style/AgricOsSecondaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/terms_and_condition_desc"
+                android:textColor="@color/BG_blue_darker"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_terms_and_condition" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner_audio_filter"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_terms_and_condition_desc">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="English" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_download"
+                style="@style/AgricOsPrimaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/BG_green_agricOS"
+                android:text="@string/download"
+                android:textAllCaps="false"
+                android:visibility="@{isDownloadAvailable? View.VISIBLE: View.GONE}"
+                app:icon="@android:drawable/stat_sys_download"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_audio_filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinner_audio_filter"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:contentPadding="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_audio_filter"
+                app:layout_constraintVertical_bias="0.1"
+                app:strokeColor="@color/BG_gray"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/seekBarLayout" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/seekBarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/play_icon"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            android:src="@drawable/baseline_volume"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.media3.ui.PlayerView
+                            android:id="@+id/video_view"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
+                            app:controller_layout_id="@layout/custom_exo_player_layout"
+                            app:default_artwork="@drawable/babban_gona"
+                            app:layout_constraintBottom_toBottomOf="@+id/play_icon"
+                            app:layout_constraintEnd_toEndOf="@+id/play_icon"
+                            app:layout_constraintLeft_toLeftOf="@+id/play_icon"
+                            app:layout_constraintRight_toRightOf="@+id/play_icon"
+                            app:layout_constraintStart_toStartOf="@+id/play_icon"
+                            app:layout_constraintTop_toTopOf="@+id/play_icon"
+                            app:use_controller="true" />
+
+
+                        <!--                        <androidx.media3.ui.PlayerView-->
+                        <!--                            android:id="@+id/video_view"-->
+                        <!--                            android:layout_width="300dp"-->
+                        <!--                            android:layout_height="300dp"-->
+                        <!--                            app:controller_layout_id="@layout/custom_exo_player_layout"-->
+                        <!--                            app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--                            app:layout_constraintHorizontal_bias="0.5"-->
+                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                            app:layout_constraintTop_toTopOf="parent"-->
+                        <!--                            app:use_controller="true" />-->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/next_btn"
+                style="@style/AgricOsSecondaryButtonFO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="@dimen/height_primary_button"
+                android:text="@string/next"
+                app:cornerRadius="@dimen/corner_radius_standard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_view"
+                app:layout_constraintVertical_bias="0.2"
+                app:strokeColor="@color/BG_gray"
+                app:strokeWidth="@dimen/standard_stroke_width" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
